@@ -48,33 +48,71 @@ function stopWalk () {
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.portal, function (sprite, otherSprite) {
-    let value = ""
-    tiles.setCurrentTilemap(tilemap`層級3`)
-    for (let value of tiles.getTilesByType(sprites.builtin.forestTiles10)) {
-        portal1 = sprites.create(img`
-            f f f f f f f f f f f f f f f f 
-            f f f f f f f f f f f f f f f f 
-            f f f f f f f f f f f f f f f f 
-            f f f f f f f f f f f f f f f f 
-            f f f f f f f f f f f f f f f f 
-            f f f f f f f f f f f f f f f f 
-            f f f f f f f f f f f f f f f f 
-            f f f f f f f f f f f f f f f f 
-            f f f f f f f f f f f f f f f f 
-            f f f f f f f f f f f f f f f f 
-            f f f f f f f f f f f f f f f f 
-            f f f f f f f f f f f f f f f f 
-            f f f f f f f f f f f f f f f f 
-            f f f f f f f f f f f f f f f f 
-            f f f f f f f f f f f f f f f f 
-            f f f f f f f f f f f f f f f f 
-            `, SpriteKind.portal)
-        tiles.placeOnTile(portal1, tiles.getTilesByType(sprites.builtin.forestTiles10)[value])
-        portal1.z = -1
+    if (otherSprite == portal1) {
+        tiles.setCurrentTilemap(tilemap`層級3`)
+        for (let value of sprites.allOfKind(SpriteKind.portal)) {
+            value.destroy()
+        }
+        pause(100)
+        for (let value of tiles.getTilesByType(assets.tile`我的貼圖`)) {
+            portal2 = sprites.create(img`
+                e e e e e e e e e e e e e e e e 
+                d d d d d d d d d d d d d d d d 
+                4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 d 
+                4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 d 
+                e e e e e e e 1 e e e e e e e e 
+                d d d d d d 1 1 d d d d d d d d 
+                4 4 4 4 4 1 1 1 4 4 4 4 4 4 4 d 
+                4 4 4 4 1 1 1 1 1 1 1 1 1 1 4 d 
+                e e e 1 1 1 1 1 1 1 1 1 1 1 e e 
+                d d d d 1 1 1 1 1 1 1 1 1 1 d d 
+                4 4 4 4 4 1 1 1 4 4 4 4 4 4 4 d 
+                4 4 4 4 4 4 1 1 4 4 4 4 4 4 4 d 
+                e e e e e e e 1 e e e e e e e e 
+                d d d d d d d d d d d d d d d d 
+                4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 d 
+                4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 d 
+                `, SpriteKind.portal)
+            tiles.placeOnTile(portal2, value)
+            portal2.z = -1
+        }
+        charater.setPosition(30, 121)
+        game.splash("進入商店")
+        facing = "Right"
+        charater.setImage(assets.image`standR`)
+    } else if (otherSprite == portal2) {
+        tiles.setCurrentTilemap(tilemap`層級1`)
+        for (let value of sprites.allOfKind(SpriteKind.portal)) {
+            value.destroy()
+        }
+        pause(100)
+        for (let value of tiles.getTilesByType(sprites.builtin.forestTiles10)) {
+            portal1 = sprites.create(img`
+                f f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f f 
+                f f f f f f f f f f f f f f f f 
+                `, SpriteKind.portal)
+            tiles.placeOnTile(portal1, value)
+            portal1.z = -1
+        }
+        charater.setPosition(128, 59)
+        game.splash("回到大街")
+        facing = "Down"
+        charater.setImage(assets.image`standD`)
     }
-    charater.setPosition(7, 121)
-    facing = value
-    charater.setImage(assets.image`standR`)
 })
 controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
     walk()
@@ -83,13 +121,13 @@ controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, charater)
     stopWalk()
 })
+let portal2: Sprite = null
 let facing = ""
 let portal1: Sprite = null
 let charater: Sprite = null
 tiles.setCurrentTilemap(tilemap`層級1`)
 charater = sprites.create(assets.image`standD`, SpriteKind.Player)
 for (let value of tiles.getTilesByType(sprites.builtin.forestTiles10)) {
-    let list: Image = null
     portal1 = sprites.create(img`
         f f f f f f f f f f f f f f f f 
         f f f f f f f f f f f f f f f f 
@@ -108,7 +146,7 @@ for (let value of tiles.getTilesByType(sprites.builtin.forestTiles10)) {
         f f f f f f f f f f f f f f f f 
         f f f f f f f f f f f f f f f f 
         `, SpriteKind.portal)
-    tiles.placeOnTile(portal1, tiles.getTilesByType(list)[value])
+    tiles.placeOnTile(portal1, value)
     portal1.z = -1
 }
 controller.moveSprite(charater)
