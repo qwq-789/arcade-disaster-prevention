@@ -1,5 +1,6 @@
 namespace SpriteKind {
     export const portal = SpriteKind.create()
+    export const tree = SpriteKind.create()
 }
 function walk () {
     if (controller.up.isPressed()) {
@@ -47,73 +48,28 @@ function stopWalk () {
         charater.setImage(assets.image`standR`)
     }
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.portal, function (sprite, otherSprite) {
-    if (otherSprite == portal1) {
-        tiles.setCurrentTilemap(tilemap`層級3`)
-        for (let value of sprites.allOfKind(SpriteKind.portal)) {
-            value.destroy()
-        }
-        pause(100)
-        for (let value of tiles.getTilesByType(assets.tile`我的貼圖`)) {
-            portal2 = sprites.create(img`
-                e e e e e e e e e e e e e e e e 
-                d d d d d d d d d d d d d d d d 
-                4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 d 
-                4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 d 
-                e e e e e e e 1 e e e e e e e e 
-                d d d d d d 1 1 d d d d d d d d 
-                4 4 4 4 4 1 1 1 4 4 4 4 4 4 4 d 
-                4 4 4 4 1 1 1 1 1 1 1 1 1 1 4 d 
-                e e e 1 1 1 1 1 1 1 1 1 1 1 e e 
-                d d d d 1 1 1 1 1 1 1 1 1 1 d d 
-                4 4 4 4 4 1 1 1 4 4 4 4 4 4 4 d 
-                4 4 4 4 4 4 1 1 4 4 4 4 4 4 4 d 
-                e e e e e e e 1 e e e e e e e e 
-                d d d d d d d d d d d d d d d d 
-                4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 d 
-                4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 d 
-                `, SpriteKind.portal)
-            tiles.placeOnTile(portal2, value)
-            portal2.z = -1
-        }
-        charater.setPosition(30, 121)
-        game.splash("進入商店")
-        facing = "Right"
-        charater.setImage(assets.image`standR`)
-    } else if (otherSprite == portal2) {
-        tiles.setCurrentTilemap(tilemap`層級1`)
-        for (let value of sprites.allOfKind(SpriteKind.portal)) {
-            value.destroy()
-        }
-        pause(100)
-        for (let value of tiles.getTilesByType(sprites.builtin.forestTiles10)) {
-            portal1 = sprites.create(img`
-                f f f f f f f f f f f f f f f f 
-                f f f f f f f f f f f f f f f f 
-                f f f f f f f f f f f f f f f f 
-                f f f f f f f f f f f f f f f f 
-                f f f f f f f f f f f f f f f f 
-                f f f f f f f f f f f f f f f f 
-                f f f f f f f f f f f f f f f f 
-                f f f f f f f f f f f f f f f f 
-                f f f f f f f f f f f f f f f f 
-                f f f f f f f f f f f f f f f f 
-                f f f f f f f f f f f f f f f f 
-                f f f f f f f f f f f f f f f f 
-                f f f f f f f f f f f f f f f f 
-                f f f f f f f f f f f f f f f f 
-                f f f f f f f f f f f f f f f f 
-                f f f f f f f f f f f f f f f f 
-                `, SpriteKind.portal)
-            tiles.placeOnTile(portal1, value)
-            portal1.z = -1
-        }
-        charater.setPosition(128, 59)
-        game.splash("回到大街")
-        facing = "Down"
-        charater.setImage(assets.image`standD`)
-    }
-})
+function Virus () {
+    virus = sprites.create(img`
+        . . . . . . 6 . . . . 6 . . . . 
+        . . . . . . 6 6 . . 6 8 . 6 . . 
+        . . 6 . . . 8 6 . 6 8 . 6 6 . . 
+        . . 6 6 6 . 8 6 6 6 6 6 6 8 . . 
+        . . 8 8 6 6 6 6 6 6 6 6 8 . . 6 
+        . . . . 6 6 6 6 6 6 6 6 6 6 6 8 
+        6 6 . . 6 5 2 6 6 6 5 2 6 6 8 . 
+        8 6 6 6 6 6 6 6 6 6 6 6 6 6 . . 
+        . 8 8 6 6 6 6 e e e 6 6 6 6 6 6 
+        . . . 6 6 6 e e e 2 2 6 6 6 8 8 
+        . . . 6 6 6 e 2 2 2 2 6 6 6 . . 
+        . 6 6 6 6 6 6 2 2 2 6 6 6 6 6 . 
+        . 8 8 8 8 6 6 6 6 6 6 6 8 8 6 6 
+        . . . . . 6 6 6 6 6 6 6 6 . 8 6 
+        . . . 6 6 6 8 . 6 8 . 8 6 . . 8 
+        . . . 6 8 8 . . 6 8 . 8 6 6 . . 
+        `, SpriteKind.Enemy)
+    virus.setPosition(randint(0, 1020), randint(0, 1020))
+    virus.follow(charater, 30)
+}
 controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
     walk()
 })
@@ -121,37 +77,62 @@ controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, charater)
     stopWalk()
 })
-let portal2: Sprite = null
+let timeSecword = ""
+let timeMinterword = ""
+let timeSec = 0
+let timeMinter = 0
+let virus: Sprite = null
+let tree: Sprite = null
 let facing = ""
-let portal1: Sprite = null
 let charater: Sprite = null
 tiles.setCurrentTilemap(tilemap`層級1`)
 charater = sprites.create(assets.image`standD`, SpriteKind.Player)
-for (let value of tiles.getTilesByType(sprites.builtin.forestTiles10)) {
-    portal1 = sprites.create(img`
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        f f f f f f f f f f f f f f f f 
-        `, SpriteKind.portal)
-    tiles.placeOnTile(portal1, value)
-    portal1.z = -1
-}
-controller.moveSprite(charater)
+controller.moveSprite(charater, 100, 100)
 scene.cameraFollowSprite(charater)
 facing = "Down"
+charater.setPosition(510, 510)
+charater.setBounceOnWall(false)
+for (let value of tiles.getTilesByType(assets.tile`我的貼圖`)) {
+    tree = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . c c c c 6 . . . . . 
+        . . . . c c 6 7 7 5 5 6 6 . . . 
+        . . c c 6 6 6 6 7 5 5 7 c c . . 
+        . c 6 6 6 7 7 7 7 7 7 5 6 c c . 
+        . c 6 6 7 7 7 5 7 6 7 7 7 6 c c 
+        c 6 6 7 7 6 7 7 7 6 7 7 6 6 6 c 
+        c c 6 6 6 7 6 7 6 6 6 6 5 7 6 c 
+        c c c c 6 7 7 6 7 7 7 6 7 6 6 c 
+        . c c 6 6 6 6 c 6 6 6 6 6 c c c 
+        . c c 6 6 c 6 6 c 6 c 6 6 c c . 
+        . . c c f f 6 6 c f f c c f . . 
+        . . . . c f c c c f c f f . . . 
+        . . . . . 4 f f f c . e . . . . 
+        . . . . . . e e e . . 4 . . . . 
+        . . . . . . . e e . e . . . . . 
+        `, SpriteKind.tree)
+    tiles.placeOnTile(tree, value)
+    tiles.setTileAt(value, sprites.skillmap.islandTile4)
+    tiles.setWallAt(value, true)
+}
 game.onUpdate(function () {
-    charater.sayText("" + Math.trunc(charater.x) + "," + Math.trunc(charater.y))
+    timeMinter = Math.trunc(game.runtime() / 1000 / 60)
+    timeSec = Math.trunc(game.runtime() / 1000)
+    if (timeMinter < 10) {
+        timeMinterword = "0" + timeMinter
+    } else {
+        timeMinterword = convertToText(timeMinter)
+    }
+    if (timeSec >= 60) {
+        timeSec += -60
+    }
+    if (timeSec < 10) {
+        timeSecword = "0" + timeSec
+    } else {
+        timeSecword = convertToText(timeSec)
+    }
+    charater.sayText("" + timeMinterword + ":" + timeSecword)
+})
+game.onUpdateInterval(5000, function () {
+    Virus()
 })
