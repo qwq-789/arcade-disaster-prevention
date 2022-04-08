@@ -49,24 +49,13 @@ function stopWalk () {
     }
 }
 function Virus () {
-    virus = sprites.create(img`
-        . . . . . . 6 . . . . 6 . . . . 
-        . . . . . . 6 6 . . 6 8 . 6 . . 
-        . . 6 . . . 8 6 . 6 8 . 6 6 . . 
-        . . 6 6 6 . 8 6 6 6 6 6 6 8 . . 
-        . . 8 8 6 6 6 6 6 6 6 6 8 . . 6 
-        . . . . 6 6 6 6 6 6 6 6 6 6 6 8 
-        6 6 . . 6 5 2 6 6 6 5 2 6 6 8 . 
-        8 6 6 6 6 6 6 6 6 6 6 6 6 6 . . 
-        . 8 8 6 6 6 6 e e e 6 6 6 6 6 6 
-        . . . 6 6 6 e e e 2 2 6 6 6 8 8 
-        . . . 6 6 6 e 2 2 2 2 6 6 6 . . 
-        . 6 6 6 6 6 6 2 2 2 6 6 6 6 6 . 
-        . 8 8 8 8 6 6 6 6 6 6 6 8 8 6 6 
-        . . . . . 6 6 6 6 6 6 6 6 . 8 6 
-        . . . 6 6 6 8 . 6 8 . 8 6 . . 8 
-        . . . 6 8 8 . . 6 8 . 8 6 6 . . 
-        `, SpriteKind.Enemy)
+    virus = sprites.create(assets.image`virus`, SpriteKind.Enemy)
+    animation.runImageAnimation(
+    virus,
+    assets.animation`我的動畫`,
+    200,
+    true
+    )
     virus.setPosition(randint(0, 1020), randint(0, 1020))
     virus.follow(charater, 30)
 }
@@ -125,6 +114,7 @@ game.onUpdate(function () {
     }
     if (timeSec >= 60) {
         timeSec += -60
+        timeSec = timeSec
     }
     if (timeSec < 10) {
         timeSecword = "0" + timeSec

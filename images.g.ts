@@ -75,6 +75,25 @@ d d d 9 9 9 9 9 .
 . . . . f f . . . 
 . . . . 1 1 . . . 
 `;
+            case "v4Kz_jq:j|6jqgoDTt04":
+            case "virus":return img`
+. . . . . . c . . . . c . . . . 
+. . . . . . c c . . c f . c . . 
+. . c . . . f c . c f . c c . . 
+. . c c c . f c c c c c c f . . 
+. . f f c c c c c c c c f . . c 
+. . . . c c c c c c c c c c c f 
+c c . . c 2 1 c c c 2 1 c c f . 
+f c c c c c c c c c c c c c . . 
+. f f c c c c 4 4 4 c c c c c c 
+. . . c c c 4 4 4 2 2 c c c f f 
+. . . c c c 4 2 2 2 2 c c c . . 
+. c c c c c c 2 2 2 c c c c c . 
+. f f f f c c c c c c c f f c c 
+. . . . . c c c c c c c c . f c 
+. . . c c c f . c f . f c . . f 
+. . . c f f . . c f . f c c . . 
+`;
         }
         return null;
     })
@@ -344,6 +363,62 @@ d d d 9 9 9 9 9 .
 . . . f f f f . . 
 . . . . f f . . . 
 . . . . 1 1 . . . 
+`];
+            case "我的動畫":
+            case "anim5":return [img`
+. . . . . . c . . . . c . . . . . 
+. . . . . . c c . . c f . c c . . 
+. . c . . . f c . c f . c c f . . 
+. . c c c . f c c c c c c f . . . 
+. . f f c c c c c c c c f . . c c 
+. . . . c c c c c c c c c c c f f 
+c c . . c 2 1 c c c 2 1 c c f . . 
+f c c c c c c c c c c c c c . . c 
+. f f c c c c 4 4 4 c c c c c c f 
+. . . c c c 4 4 4 2 2 c c c f f . 
+. . . c c c 4 2 2 2 2 c c c . . . 
+. c c c c c c 2 2 2 c c c c c . . 
+c c f f f c c c c c c c f f c c . 
+c f . . . c c c c c c c c . f c c 
+. . . c c c f . c f . f c . . f f 
+. . c c f f . . c f . f c c . . . 
+. . f f . . . c f . . . f c . . . 
+`, img`
+. . . . . . . . . c f . . . c . . 
+. . . . . c c . . c f . c c f . . 
+. . . . . f c c . c f . c f . . . 
+. . c c c . f c c c c c c f . . . 
+. c f f c c c c c c c c f . . . . 
+. f . . c c c c c c c c c c c c . 
+. . . . c 2 1 c c c 2 1 c c f f . 
+. . c c c c c c c c c c c c . . . 
+. c f c c c c 4 4 4 c c c c c . . 
+c f . c c c 4 4 4 2 2 c c c f c . 
+f . . c c c 4 2 2 2 2 c c c . f . 
+. . c c c c c 2 2 2 c c c c . . . 
+. c f f f c c c c c c c f f c c . 
+c c f . . c c c c c c c c . f f . 
+f f . . . c f . c f . f c c . . . 
+. . . . c f . c f f . . f f c . . 
+. . . . . . . . . . . . . . . . . 
+`, img`
+. . . . . . c . c c f . . . . . . 
+. . c . . . c c f c f . . . . . . 
+. . f c . . f c . c f . . c c c . 
+. . f c c . f c c c c c c f f f . 
+. . . f c c c c c c c c f . . c . 
+. . . . c c c c c c c c c c c f . 
+. . . . c 2 1 c c c 2 1 c c f . . 
+c c c c c c c c c c c c c c . . . 
+f f f c c c c 4 4 4 c c c c c c . 
+. . . c c c 4 4 4 2 2 c c c f f . 
+c . . c c c 4 2 2 2 2 c c c . . . 
+f c c c c c c 2 2 2 c c c c c c . 
+. f f f f c c c c c c c f f f f . 
+. . . . . c c c c c c c c . . f . 
+. . . . . c f . c f . f c . . . . 
+. . . . c f . . c f . f c c . . . 
+. . . . . . . . . . . . . . . . . 
 `];
         }
         return null;
