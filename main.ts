@@ -53,7 +53,7 @@ function Virus () {
     animation.runImageAnimation(
     virus,
     assets.animation`我的動畫`,
-    200,
+    150,
     true
     )
     virus.setPosition(randint(0, 1020), randint(0, 1020))
