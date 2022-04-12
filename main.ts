@@ -61,33 +61,81 @@ function plot () {
 }
 function end () {
     game.splash("你感染了過量病毒，", "需要在家隔離")
-    game.splash("外出時間" + " " + timeMinterword + ":" + timeSecword)
+    game.splash("外出時間" + " " + timeMinterWord + ":" + timeSecWord)
     game.over(false)
+}
+function weaponLevelup () {
+    if (info.score() == 9) {
+        runText2 = true
+    } else if (info.score() == 19) {
+        runText2 = true
+    } else if (info.score() == 29) {
+        runText2 = true
+    }
+    if (info.score() == 10) {
+        if (runText2) {
+            game.splash("政府研發了更有效的疫苗!")
+            runText2 = false
+            cd = 1000
+        }
+    } else if (info.score() == 20) {
+        if (runText2) {
+            game.splash("政府研發了更有效的疫苗!")
+            runText2 = false
+            cd = 750
+        }
+    } else if (info.score() == 30) {
+        if (runText2) {
+            game.splash("政府研發了更有效的疫苗!")
+            runText2 = false
+            cd = 500
+        }
+    }
 }
 function timer () {
     timeMinter = Math.trunc(timeSec / 60)
     timeSec = Math.trunc(game.runtime() / 1000)
     if (timeMinter < 10) {
-        timeMinterword = "0" + timeMinter
+        timeMinterWord = "0" + timeMinter
     } else {
-        timeMinterword = convertToText(timeMinter)
+        timeMinterWord = convertToText(timeMinter)
     }
     if (timeSec < 10) {
-        timeSecword = "0" + timeSec
-    } else if (timeSec / 60 == counter) {
+        timeSecWord = "0" + timeSec
+    } else if (timeMinter == counter) {
         counter += 1
-        timeSecword = convertToText(timeSec / 60 - (counter - 1))
+        timeSecWord = convertToText((timeSec / 60 - (counter - 1)) * 60)
     } else {
-        timeSecword = convertToText(timeSec)
+        timeSecWord = convertToText(timeSec)
     }
-    charater.sayText("" + timeMinterword + ":" + timeSecword)
+    charater.sayText("" + timeMinterWord + ":" + timeSecWord)
+}
+function virusLevelup () {
+    if (timeSec == 60) {
+        if (runText) {
+            virusHeart = 5
+            game.splash("小心!", "病毒的抗藥性上升了")
+            runText = false
+        }
+    } else if (timeSec == 120) {
+        if (runText) {
+            virusHeart = 10
+            game.splash("小心!", "病毒的抗藥性上升了")
+            runText = false
+        }
+    } else if (timeSec == 180) {
+        if (runText) {
+            virusHeart = 15
+            game.splash("小心!", "病毒的抗藥性上升了")
+            runText = false
+        }
+    }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.coin, function (sprite, otherSprite) {
     otherSprite.startEffect(effects.confetti, 200)
     otherSprite.destroy()
     info.changeScoreBy(1)
     runText = true
-    runText2 = true
     music.magicWand.play()
 })
 function Virus () {
@@ -152,13 +200,13 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     music.powerDown.play()
 })
 let vaccine: Sprite = null
-let cd = 0
 let virus: Sprite = null
 let charater: Sprite = null
 let timeSec = 0
 let timeMinter = 0
-let timeSecword = ""
-let timeMinterword = ""
+let cd = 0
+let timeSecWord = ""
+let timeMinterWord = ""
 let counter = 0
 let runText2 = false
 let runText = false
@@ -169,6 +217,10 @@ doMap()
 doCharacter()
 walkAnimate()
 plot()
+game.onUpdate(function () {
+    timer()
+    virusLevelup()
+})
 game.onUpdateInterval(cd - 400, function () {
     Virus()
 })
@@ -200,46 +252,6 @@ forever(function () {
         spriteutils.setVelocityAtAngle(vaccine, spriteutils.angleFrom(charater, value), 100)
     }
     vaccine.setKind(SpriteKind.arrow)
-    if (info.score() >= 10 && info.score() < 20) {
-        if (runText2) {
-            game.splash("政府研發了更有效的疫苗!")
-            runText2 = false
-            cd = 1000
-        }
-    } else if (info.score() >= 20 && info.score() < 30) {
-        if (runText2) {
-            game.splash("政府研發了更有效的疫苗!")
-            runText2 = false
-            cd = 750
-        }
-    } else if (info.score() > 30) {
-        if (runText2) {
-            game.splash("政府研發了更有效的疫苗!")
-            runText2 = false
-            cd = 500
-        }
-    }
+    weaponLevelup()
     pause(cd)
-})
-game.onUpdate(function () {
-    timer()
-    if (timeSec == 60) {
-        if (runText) {
-            virusHeart = 5
-            game.splash("小心!", "病毒的抗藥性上升了")
-            runText = false
-        }
-    } else if (timeSec == 120) {
-        if (runText) {
-            virusHeart = 10
-            game.splash("小心!", "病毒的抗藥性上升了")
-            runText = false
-        }
-    } else if (timeSec == 180) {
-        if (runText) {
-            virusHeart = 15
-            game.splash("小心!", "病毒的抗藥性上升了")
-            runText = false
-        }
-    }
 })
