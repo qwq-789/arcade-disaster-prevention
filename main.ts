@@ -18,7 +18,7 @@ sprites.onOverlap(SpriteKind.arrow, SpriteKind.Enemy, function (sprite, otherSpr
     coin.setPosition(otherSprite.x, otherSprite.y)
     coin.z = -1
     sprite.destroy()
-    virusHeart += -1
+    virusHeart += ATT
     if (virusHeart == 0) {
         otherSprite.startEffect(effects.disintegrate, 200)
         otherSprite.destroy()
@@ -65,36 +65,98 @@ function end () {
     game.over(false)
 }
 function weaponLevelup () {
-    if (info.score() == 9) {
+    ATT = -1
+    if (info.score() <= 9) {
         runText2 = true
-    } else if (info.score() == 19) {
+    } else if (info.score() >= 15 && info.score() <= 19) {
         runText2 = true
-    } else if (info.score() == 29) {
+    } else if (info.score() >= 25 && info.score() <= 29) {
+        runText2 = true
+    } else if (info.score() >= 35 && info.score() <= 39) {
+        runText2 = true
+    } else if (info.score() >= 45 && info.score() <= 49) {
+        runText2 = true
+    } else if (info.score() >= 55 && info.score() <= 59) {
+        runText2 = true
+    } else if (info.score() >= 65 && info.score() <= 69) {
+        runText2 = true
+    } else if (info.score() >= 75 && info.score() <= 79) {
+        runText2 = true
+    } else if (info.score() >= 85 && info.score() <= 89) {
+        runText2 = true
+    } else if (info.score() >= 95 && info.score() <= 99) {
         runText2 = true
     }
-    if (info.score() == 10) {
+    if (info.score() >= 10 && info.score() < 15) {
         if (runText2) {
             game.splash("政府研發了更有效的疫苗!")
             runText2 = false
             cd = 1000
         }
-    } else if (info.score() == 20) {
+    } else if (info.score() >= 20 && info.score() < 25) {
         if (runText2) {
             game.splash("政府研發了更有效的疫苗!")
             runText2 = false
             cd = 750
         }
-    } else if (info.score() == 30) {
+    } else if (info.score() >= 30 && info.score() < 35) {
         if (runText2) {
             game.splash("政府研發了更有效的疫苗!")
+            runText2 = false
+            cd = 500
+        }
+    } else if (info.score() >= 40 && info.score() < 45) {
+        if (runText2) {
+            game.splash("政府研發了更有效的疫苗!")
+            ATT = -2
+            runText2 = false
+            cd = 500
+        }
+    } else if (info.score() >= 50 && info.score() < 55) {
+        if (runText2) {
+            game.splash("政府研發了更有效的疫苗!")
+            ATT = -3
+            runText2 = false
+            cd = 500
+        }
+    } else if (info.score() >= 60 && info.score() < 65) {
+        if (runText2) {
+            game.splash("政府研發了更有效的疫苗!")
+            ATT = -4
+            runText2 = false
+            cd = 500
+        }
+    } else if (info.score() >= 70 && info.score() < 75) {
+        if (runText2) {
+            game.splash("政府研發了更有效的疫苗!")
+            ATT = -5
+            runText2 = false
+            cd = 500
+        }
+    } else if (info.score() >= 80 && info.score() < 85) {
+        if (runText2) {
+            game.splash("政府研發了更有效的疫苗!")
+            ATT = -6
+            runText2 = false
+            cd = 500
+        }
+    } else if (info.score() >= 90 && info.score() < 95) {
+        if (runText2) {
+            game.splash("政府研發了更有效的疫苗!")
+            ATT = -7
+            runText2 = false
+            cd = 500
+        }
+    } else if (info.score() >= 100) {
+        if (runText2) {
+            game.splash("政府研發了更有效的疫苗!")
+            ATT = -10
             runText2 = false
             cd = 500
         }
     }
 }
 function timer () {
-    timeMinter = Math.trunc(timeSec / 60)
-    timeSec = Math.trunc(game.runtime() / 1000)
     if (timeMinter < 10) {
         timeMinterWord = "0" + timeMinter
     } else {
@@ -102,31 +164,67 @@ function timer () {
     }
     if (timeSec < 10) {
         timeSecWord = "0" + timeSec
-    } else if (timeMinter == counter) {
-        counter += 1
-        timeSecWord = convertToText((timeSec / 60 - (counter - 1)) * 60)
+    } else if (timeSec >= 60) {
+        timeMinter += 1
+        timeSec = 0
     } else {
         timeSecWord = convertToText(timeSec)
     }
     charater.sayText("" + timeMinterWord + ":" + timeSecWord)
 }
 function virusLevelup () {
-    if (timeSec == 60) {
+    if (timeSec == 30) {
         if (runText) {
             virusHeart = 5
             game.splash("小心!", "病毒的抗藥性上升了")
             runText = false
         }
-    } else if (timeSec == 120) {
+    } else if (timeSec == 60) {
         if (runText) {
             virusHeart = 10
             game.splash("小心!", "病毒的抗藥性上升了")
             runText = false
         }
-    } else if (timeSec == 180) {
+    } else if (timeSec == 150) {
         if (runText) {
             virusHeart = 15
             game.splash("小心!", "病毒的抗藥性上升了")
+            runText = false
+        }
+    } else if (timeSec == 180) {
+        if (runText) {
+            virusHeart = 20
+            game.splash("小心!", "病毒的抗藥性上升了")
+            runText = false
+        }
+    } else if (timeSec == 210) {
+        if (runText) {
+            virusHeart = 30
+            game.splash("小心!", "病毒的抗藥性上升了")
+            runText = false
+        }
+    } else if (timeSec == 240) {
+        if (runText) {
+            virusHeart = 40
+            game.splash("小心!", "病毒的抗藥性上升了")
+            runText = false
+        }
+    } else if (timeSec == 270) {
+        if (runText) {
+            virusHeart = 50
+            game.splash("小心!", "病毒的抗藥性上升了")
+            runText = false
+        }
+    } else if (timeSec == 300) {
+        if (runText) {
+            virusHeart = 60
+            game.splash("小心!", "病毒的抗藥性上升了")
+            runText = false
+        }
+    } else if (timeSec == 600) {
+        if (runText) {
+            virusHeart = 1000
+            game.splash("小心!", "病毒的抗藥性大幅度上升了")
             runText = false
         }
     }
@@ -202,8 +300,6 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 let vaccine: Sprite = null
 let virus: Sprite = null
 let charater: Sprite = null
-let timeSec = 0
-let timeMinter = 0
 let cd = 0
 let timeSecWord = ""
 let timeMinterWord = ""
@@ -211,8 +307,13 @@ let counter = 0
 let runText2 = false
 let runText = false
 let tree: Sprite = null
+let ATT = 0
 let virusHeart = 0
 let coin: Sprite = null
+let timeSec = 0
+let timeMinter = 0
+timeMinter = 0
+timeSec = 0
 doMap()
 doCharacter()
 walkAnimate()
@@ -254,4 +355,9 @@ forever(function () {
     vaccine.setKind(SpriteKind.arrow)
     weaponLevelup()
     pause(cd)
+})
+game.onUpdateInterval(1000, function () {
+    if (1000 < game.runtime()) {
+        timeSec += 1
+    }
 })
