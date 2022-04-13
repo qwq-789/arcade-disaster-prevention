@@ -80,8 +80,8 @@ function plot () {
     game.splash("你是一名很忙的防疫大使")
     game.splash("你的任務是清除外面的病毒")
     game.splash("並延長你難得的外出時間")
-    runText = true
-    runText2 = true
+    runText = false
+    runText2 = false
 }
 function end () {
     game.splash("你感染了過量病毒，", "需要在家隔離")
@@ -196,55 +196,90 @@ function timer () {
     charater.sayText("" + timeMinterWord + ":" + timeSecWord)
 }
 function virusLevelup () {
-    if (timeSec == 30) {
-        if (runText) {
-            virusHeart = 2
-            game.splash("小心!", "病毒的抗藥性上升了")
-            runText = false
+    if (timeSec == 29) {
+        runText = true
+    }
+    if (timeMinter >= 0 && timeMinter < 1) {
+        virusMaxHeart = 2
+        if (timeSec == 30) {
+            if (runText) {
+                game.splash("小心!", "病毒的抗藥性上升了")
+                runText = false
+            }
         }
-    } else if (timeSec == 60) {
-        if (runText) {
-            virusHeart = 5
-            game.splash("小心!", "病毒的抗藥性上升了")
-            runText = false
+    } else if (timeMinter >= 1 && timeMinter < 2) {
+        virusMaxHeart = 5
+        if (timeSec == 30) {
+            if (runText) {
+                game.splash("小心!", "病毒的抗藥性上升了")
+                runText = false
+            }
         }
-    } else if (timeSec == 150) {
-        if (runText) {
-            virusHeart = 8
-            game.splash("小心!", "病毒的抗藥性上升了")
-            runText = false
+    } else if (timeMinter >= 2 && timeMinter < 3) {
+        virusMaxHeart = 8
+        if (timeSec == 30) {
+            if (runText) {
+                game.splash("小心!", "病毒的抗藥性上升了")
+                runText = false
+            }
         }
-    } else if (timeSec == 180) {
-        if (runText) {
-            virusHeart = 12
-            game.splash("小心!", "病毒的抗藥性上升了")
-            runText = false
+    } else if (timeMinter >= 3 && timeMinter < 4) {
+        virusMaxHeart = 12
+        if (timeSec == 30) {
+            if (runText) {
+                game.splash("小心!", "病毒的抗藥性上升了")
+                runText = false
+            }
         }
-    } else if (timeSec == 210) {
-        if (runText) {
-            virusHeart = 15
-            game.splash("小心!", "病毒的抗藥性上升了")
-            runText = false
+    } else if (timeMinter >= 4 && timeMinter < 5) {
+        virusMaxHeart = 15
+        if (timeSec == 30) {
+            if (runText) {
+                game.splash("小心!", "病毒的抗藥性上升了")
+                runText = false
+            }
         }
-    } else if (timeSec == 240) {
-        if (runText) {
-            virusHeart = 18
-            game.splash("小心!", "病毒的抗藥性上升了")
-            runText = false
+    } else if (timeMinter >= 5 && timeMinter < 6) {
+        virusMaxHeart = 18
+        if (timeSec == 30) {
+            if (runText) {
+                game.splash("小心!", "病毒的抗藥性上升了")
+                runText = false
+            }
         }
-    } else if (timeSec == 270) {
-        if (runText) {
-            virusHeart = 21
-            game.splash("小心!", "病毒的抗藥性上升了")
-            runText = false
+    } else if (timeMinter >= 6 && timeMinter < 7) {
+        virusMaxHeart = 21
+        if (timeSec == 30) {
+            if (runText) {
+                game.splash("小心!", "病毒的抗藥性上升了")
+                runText = false
+            }
         }
-    } else if (timeSec == 300) {
-        if (runText) {
-            virusHeart = 25
-            game.splash("小心!", "病毒的抗藥性上升了")
-            game.splash("並且出現了新型變種")
-            VirusBoss()
-            runText = false
+    } else if (timeMinter >= 7 && timeMinter < 8) {
+        virusMaxHeart = 24
+        if (timeSec == 30) {
+            if (runText) {
+                game.splash("小心!", "病毒的抗藥性上升了")
+                runText = false
+            }
+        }
+    } else if (timeMinter >= 8 && timeMinter < 9) {
+        virusMaxHeart = 27
+        if (timeSec == 30) {
+            if (runText) {
+                game.splash("小心!", "病毒的抗藥性上升了")
+                runText = false
+            }
+        }
+    } else if (timeMinter >= 9) {
+        virusMaxHeart = 30
+        if (timeSec == 30) {
+            if (runText) {
+                game.splash("小心!", "病毒的抗藥性大幅度上升了")
+                game.splash("並且出現了新型變種")
+                VirusBoss()
+                runText = false
+            }
         }
     }
 }
@@ -256,12 +291,16 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.coin, function (sprite, otherSpr
     } else {
         info.changeScoreBy(1)
     }
-    runText = true
     music.magicWand.play()
 })
 function Virus () {
     virus = sprites.create(assets.image`virus`, SpriteKind.Enemy)
     virusHeart = 1
+    virusMaxHeart = 1
+    if (isBorn) {
+        virusHeart = virusMaxHeart
+        isBorn = false
+    }
     animation.runImageAnimation(
     virus,
     assets.animation`我的動畫`,
@@ -343,7 +382,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     music.powerDown.play()
 })
 let vaccine: Sprite = null
+let isBorn = false
 let virus: Sprite = null
+let virusMaxHeart = 0
 let charater: Sprite = null
 let cd = 0
 let timeSecWord = ""
@@ -370,6 +411,7 @@ game.onUpdate(function () {
     virusLevelup()
 })
 game.onUpdateInterval(cd - 400, function () {
+    isBorn = true
     Virus()
 })
 forever(function () {
