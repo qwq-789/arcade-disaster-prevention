@@ -1,55 +1,8 @@
 namespace SpriteKind {
-    export const portal = SpriteKind.create()
     export const tree = SpriteKind.create()
     export const arrow = SpriteKind.create()
     export const coin = SpriteKind.create()
 }
-sprites.onOverlap(SpriteKind.arrow, SpriteKind.Enemy, function (sprite, otherSprite) {
-    sprite.destroy()
-    virusHeart += ATT
-    if (virusHeart == 0) {
-        _100dollars = sprites.create(img`
-            f f f f f f f f f f f f f f f f f f f f 
-            f 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 f 
-            f 3 2 3 2 2 2 3 2 2 2 3 3 3 3 3 3 3 3 f 
-            f 3 2 3 2 3 2 3 2 3 2 3 3 3 3 3 3 3 3 f 
-            f 3 2 3 2 2 2 3 2 2 2 3 3 3 2 2 2 3 3 f 
-            f 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 3 3 f 
-            f 3 2 3 3 3 3 3 3 3 3 3 3 3 2 2 2 3 3 f 
-            f 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 3 3 3 f 
-            f 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 3 f 
-            f f f f f f f f f f f f f f f f f f f f 
-            `, SpriteKind.coin)
-        scaling.scaleByPercent(_100dollars, 16, ScaleDirection.Uniformly, ScaleAnchor.Middle)
-        _100dollars.setPosition(otherSprite.x, otherSprite.y)
-        _100dollars.z = -1
-        otherSprite.startEffect(effects.disintegrate, 200)
-        otherSprite.destroy()
-    }
-    if (otherSprite == virusBoss) {
-        virusBossHeart += ATT
-        if (virusBossHeart == 0) {
-            _1000dollars = sprites.create(img`
-                f f f f f f f f f f f f f f f f f f f f 
-                f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 d f 
-                f 9 8 9 8 8 8 9 8 8 8 9 8 8 8 9 9 9 d f 
-                f 9 8 9 8 9 8 9 8 9 8 9 8 9 8 9 9 9 d f 
-                f 9 8 9 8 8 8 9 8 8 8 9 8 8 8 9 9 9 d f 
-                f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 d f 
-                f 9 8 9 9 9 9 8 8 9 8 8 9 9 9 9 9 9 d f 
-                f 9 9 9 9 9 9 8 8 9 8 8 9 8 8 9 9 9 d f 
-                f 9 9 9 9 9 9 9 8 9 9 8 9 8 8 9 9 9 d f 
-                f f f f f f f f f f f f f f f f f f f f 
-                `, SpriteKind.coin)
-            _1000dollars.setPosition(otherSprite.x, otherSprite.y)
-            scaling.scaleByPercent(_1000dollars, 24, ScaleDirection.Uniformly, ScaleAnchor.Middle)
-            _100dollars.z = -1
-            otherSprite.startEffect(effects.disintegrate, 200)
-            otherSprite.destroy()
-        }
-    }
-    music.zapped.play()
-})
 function doMap () {
     tiles.setCurrentTilemap(tilemap`層級1`)
     for (let value of tiles.getTilesByType(assets.tile`我的貼圖`)) {
@@ -283,6 +236,52 @@ function virusLevelup () {
         }
     }
 }
+sprites.onOverlap(SpriteKind.arrow, SpriteKind.Enemy, function (sprite, otherSprite) {
+    sprite.destroy()
+    virusHeart += ATT
+    if (virusHeart <= 0) {
+        _100dollars = sprites.create(img`
+            f f f f f f f f f f f f f f f f f f f f 
+            f 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 f 
+            f 3 2 3 2 2 2 3 2 2 2 3 3 3 3 3 3 3 3 f 
+            f 3 2 3 2 3 2 3 2 3 2 3 3 3 3 3 3 3 3 f 
+            f 3 2 3 2 2 2 3 2 2 2 3 3 3 2 2 2 3 3 f 
+            f 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 3 3 f 
+            f 3 2 3 3 3 3 3 3 3 3 3 3 3 2 2 2 3 3 f 
+            f 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 3 3 3 f 
+            f 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 3 f 
+            f f f f f f f f f f f f f f f f f f f f 
+            `, SpriteKind.coin)
+        scaling.scaleByPercent(_100dollars, 16, ScaleDirection.Uniformly, ScaleAnchor.Middle)
+        _100dollars.setPosition(otherSprite.x, otherSprite.y)
+        _100dollars.z = -1
+        otherSprite.startEffect(effects.disintegrate, 200)
+        otherSprite.destroy()
+    }
+    if (otherSprite == virusBoss) {
+        virusBossHeart += ATT
+        if (virusBossHeart <= 0) {
+            _1000dollars = sprites.create(img`
+                f f f f f f f f f f f f f f f f f f f f 
+                f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 d f 
+                f 9 8 9 8 8 8 9 8 8 8 9 8 8 8 9 9 9 d f 
+                f 9 8 9 8 9 8 9 8 9 8 9 8 9 8 9 9 9 d f 
+                f 9 8 9 8 8 8 9 8 8 8 9 8 8 8 9 9 9 d f 
+                f 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 d f 
+                f 9 8 9 9 9 9 8 8 9 8 8 9 9 9 9 9 9 d f 
+                f 9 9 9 9 9 9 8 8 9 8 8 9 8 8 9 9 9 d f 
+                f 9 9 9 9 9 9 9 8 9 9 8 9 8 8 9 9 9 d f 
+                f f f f f f f f f f f f f f f f f f f f 
+                `, SpriteKind.coin)
+            _1000dollars.setPosition(otherSprite.x, otherSprite.y)
+            scaling.scaleByPercent(_1000dollars, 24, ScaleDirection.Uniformly, ScaleAnchor.Middle)
+            _1000dollars.z = -1
+            otherSprite.startEffect(effects.disintegrate, 200)
+            otherSprite.destroy()
+        }
+    }
+    music.zapped.play()
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.coin, function (sprite, otherSprite) {
     otherSprite.startEffect(effects.confetti, 200)
     otherSprite.destroy()
@@ -384,20 +383,20 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 let vaccine: Sprite = null
 let isBorn = false
 let virus: Sprite = null
+let _1000dollars: Sprite = null
+let virusBossHeart = 0
+let virusBoss: Sprite = null
+let _100dollars: Sprite = null
+let virusHeart = 0
 let virusMaxHeart = 0
 let charater: Sprite = null
+let ATT = 0
 let cd = 0
 let timeSecWord = ""
 let timeMinterWord = ""
 let runText2 = false
 let runText = false
 let tree2: Sprite = null
-let _1000dollars: Sprite = null
-let virusBossHeart = 0
-let virusBoss: Sprite = null
-let _100dollars: Sprite = null
-let ATT = 0
-let virusHeart = 0
 let timeSec = 0
 let timeMinter = 0
 timeMinter = 0
