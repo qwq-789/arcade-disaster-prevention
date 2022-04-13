@@ -242,12 +242,6 @@ function virusLevelup () {
         if (runText) {
             virusHeart = 60
             game.splash("小心!", "病毒的抗藥性上升了")
-            runText = false
-        }
-    } else if (timeSec == 5) {
-        if (runText) {
-            virusHeart = 80
-            game.splash("小心!", "病毒的抗藥性大幅度上升了")
             game.splash("並且出現了新型變種")
             VirusBoss()
             runText = false
@@ -378,6 +372,11 @@ game.onUpdate(function () {
 game.onUpdateInterval(cd - 400, function () {
     Virus()
 })
+game.onUpdateInterval(1000, function () {
+    if (1000 < game.runtime()) {
+        timeSec += 1
+    }
+})
 forever(function () {
     vaccine = sprites.createProjectileFromSprite(img`
         . . . b . . . . 
@@ -408,9 +407,4 @@ forever(function () {
     vaccine.setKind(SpriteKind.arrow)
     weaponLevelup()
     pause(cd)
-})
-game.onUpdateInterval(1000, function () {
-    if (1000 < game.runtime()) {
-        timeSec += 1
-    }
 })
