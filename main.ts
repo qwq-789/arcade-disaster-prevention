@@ -198,49 +198,49 @@ function timer () {
 function virusLevelup () {
     if (timeSec == 30) {
         if (runText) {
-            virusHeart = 5
+            virusHeart = 2
             game.splash("小心!", "病毒的抗藥性上升了")
             runText = false
         }
     } else if (timeSec == 60) {
         if (runText) {
-            virusHeart = 10
+            virusHeart = 5
             game.splash("小心!", "病毒的抗藥性上升了")
             runText = false
         }
     } else if (timeSec == 150) {
         if (runText) {
-            virusHeart = 15
+            virusHeart = 8
             game.splash("小心!", "病毒的抗藥性上升了")
             runText = false
         }
     } else if (timeSec == 180) {
         if (runText) {
-            virusHeart = 20
+            virusHeart = 12
             game.splash("小心!", "病毒的抗藥性上升了")
             runText = false
         }
     } else if (timeSec == 210) {
         if (runText) {
-            virusHeart = 30
+            virusHeart = 15
             game.splash("小心!", "病毒的抗藥性上升了")
             runText = false
         }
     } else if (timeSec == 240) {
         if (runText) {
-            virusHeart = 40
+            virusHeart = 18
             game.splash("小心!", "病毒的抗藥性上升了")
             runText = false
         }
     } else if (timeSec == 270) {
         if (runText) {
-            virusHeart = 50
+            virusHeart = 21
             game.splash("小心!", "病毒的抗藥性上升了")
             runText = false
         }
     } else if (timeSec == 300) {
         if (runText) {
-            virusHeart = 60
+            virusHeart = 25
             game.splash("小心!", "病毒的抗藥性上升了")
             game.splash("並且出現了新型變種")
             VirusBoss()
@@ -261,6 +261,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.coin, function (sprite, otherSpr
 })
 function Virus () {
     virus = sprites.create(assets.image`virus`, SpriteKind.Enemy)
+    virusHeart = 1
     animation.runImageAnimation(
     virus,
     assets.animation`我的動畫`,
@@ -304,7 +305,6 @@ function walkAnimate () {
     )
 }
 function doCharacter () {
-    virusHeart = 1
     charater = sprites.create(assets.image`standD`, SpriteKind.Player)
     info.setLife(3)
     info.setScore(0)
@@ -317,7 +317,7 @@ function doCharacter () {
 function VirusBoss () {
     virusBoss = sprites.create(assets.image`virus2`, SpriteKind.Enemy)
     scaling.scaleByPercent(virusBoss, 50, ScaleDirection.Uniformly, ScaleAnchor.Middle)
-    virusBossHeart = 200
+    virusBossHeart = 40
     animation.runImageAnimation(
     virusBoss,
     assets.animation`我的動畫0`,
@@ -372,11 +372,6 @@ game.onUpdate(function () {
 game.onUpdateInterval(cd - 400, function () {
     Virus()
 })
-game.onUpdateInterval(1000, function () {
-    if (1000 < game.runtime()) {
-        timeSec += 1
-    }
-})
 forever(function () {
     vaccine = sprites.createProjectileFromSprite(img`
         . . . b . . . . 
@@ -407,4 +402,9 @@ forever(function () {
     vaccine.setKind(SpriteKind.arrow)
     weaponLevelup()
     pause(cd)
+})
+game.onUpdateInterval(1000, function () {
+    if (1000 < game.runtime()) {
+        timeSec += 1
+    }
 })
