@@ -1,10 +1,11 @@
 {
-    "name": "口罩防災遊戲",
+    "name": "防災遊戲",
     "description": "",
     "dependencies": {
         "device": "*",
         "arcade-character-animations": "github:microsoft/arcade-character-animations#v0.0.2",
-        "arcade-sprite-util": "github:jwunderl/arcade-sprite-util#v0.2.5"
+        "arcade-sprite-util": "github:jwunderl/arcade-sprite-util#v0.2.5",
+        "sprite-scaling": "*"
     },
     "files": [
         "main.blocks",
